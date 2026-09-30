@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agri-Shield | Drought Stress Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="brand">🌾 AGRI-SHIELD</div>
+      <div class="subtitle">Satellite-Based Agricultural Drought Stress Detection</div>
+    </div>
+    <div class="status"><span></span> Monitoring Active</div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">AGRICULTURAL SUSTAINABILITY</p>
+        <h1>Detect crop water stress before it becomes a crisis.</h1>
+        <p class="hero-text">
+          A geospatial decision-support dashboard combining vegetation health,
+          moisture, land-surface temperature and rainfall indicators.
+        </p>
+      </div>
+      <div class="score-card">
+        <div class="score-label">DROUGHT STRESS SCORE</div>
+        <div class="score">{{ data.stress_score }}<small>/100</small></div>
+        <div class="badge high">{{ data.class }}</div>
+      </div>
+    </section>
+
+    <section class="metrics">
+      <div class="metric"><span>🌿 NDVI</span><strong>{{ data.ndvi }}</strong><small>Vegetation health</small></div>
+      <div class="metric"><span>💧 NDMI</span><strong>{{ data.ndmi }}</strong><small>Vegetation moisture</small></div>
+      <div class="metric"><span>🌡️ LST</span><strong>{{ data.lst }}°C</strong><small>Surface temperature</small></div>
+      <div class="metric"><span>🌧️ Rainfall</span><strong>{{ data.rainfall }} mm</strong><small>Recent rainfall</small></div>
+    </section>
+
+    <section class="grid">
+      <div class="panel map-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Drought Stress Map</h2>
+            <p>{{ data.region }}</p>
+          </div>
+          <select>
+            <option>Stress Score</option>
+            <option>NDVI</option>
+            <option>NDMI</option>
+            <option>Rainfall</option>
+            <option>LST</option>
+          </select>
+        </div>
+        <div class="map-placeholder">
+          <div class="map-grid"></div>
+          <div class="map-center">
+            <div class="pin">📍</div>
+            <strong>Earth Engine Layer</strong>
+            <span>Connect GeoTIFF / GeoJSON here</span>
+          </div>
+        </div>
+        <div class="legend">
+          <span><i class="normal"></i> Normal</span>
+          <span><i class="moderate"></i> Moderate</span>
+          <span><i class="high"></i> High</span>
+          <span><i class="severe"></i> Severe</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Area Distribution</h2>
+            <p>Current agricultural condition</p>
+          </div>
+        </div>
+        <div class="bars">
+          <div class="bar-row"><span>Healthy</span><div><b style="width:{{ data.healthy_pct }}%"></b></div><strong>{{ data.healthy_pct }}%</strong></div>
+          <div class="bar-row"><span>Moderate</span><div><b style="width:{{ data.moderate_pct }}%"></b></div><strong>{{ data.moderate_pct }}%</strong></div>
+          <div class="bar-row"><span>High</span><div><b style="width:{{ data.high_pct }}%"></b></div><strong>{{ data.high_pct }}%</strong></div>
+          <div class="bar-row"><span>Severe</span><div><b style="width:{{ data.severe_pct }}%"></b></div><strong>{{ data.severe_pct }}%</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel recommendation">
+      <div>
+        <p class="eyebrow">DECISION SUPPORT</p>
+        <h2>Recommended Action</h2>
+        <p>
+          Prioritize field-level inspection and water-management intervention
+          in areas classified as high or severe stress. Verify conditions
+          locally before taking agricultural action.
+        </p>
+      </div>
+      <div class="action">⚠️ PRIORITY<br><strong>HIGH-STRESS ZONES</strong></div>
+    </section>
+
+    <footer>
+      AGRI-SHIELD • Agricultural Sustainability Hackathon • Satellite → Analysis → Decision
+    </footer>
+  </main>
+</body>
+</html>
